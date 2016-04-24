@@ -56,11 +56,11 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="/Forum/assets/images/img.jpg" alt="">Usuário
+                                    <img src="/Forum/assets/images/img.jpg" alt="">${sessionScope.usuario.getUsuario()}
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i>Sair</a>
+                                    <li><a href="/Forum/web/logout"><i class="fa fa-sign-out pull-right"></i>Sair</a>
                                     </li>
                                 </ul>
                             </li>

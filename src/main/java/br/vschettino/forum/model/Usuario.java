@@ -6,14 +6,15 @@
 package br.vschettino.forum.model;
 
 import java.util.Collection;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.context.annotation.Scope;
 
 /**
  *
  * @author Vinicius Schettino
+ *
  */
-public class Usuario implements UserDetails {
+@Scope("session")
+public class Usuario implements AuthenticationModel {
 
     private int id;
     private String usuario;
@@ -26,11 +27,6 @@ public class Usuario implements UserDetails {
 
     public Usuario() {
 
-    }
-
-    public Usuario(String usuario, String senha, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
-        this.usuario = usuario;
-        this.senha = senha;
     }
 
     public int getId() {
@@ -55,41 +51,16 @@ public class Usuario implements UserDetails {
 
     public void setSenha(String senha) {
         this.senha = senha;
+
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+    public String getEncryptedPassword() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public String getPassword() {
-        return this.senha;
+    public AuthenticationModel getUserDetails() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public String getUsername() {
-        return this.usuario;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
 }

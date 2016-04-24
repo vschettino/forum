@@ -5,19 +5,23 @@
  */
 package br.vschettino.forum.dao;
 
+import br.vschettino.forum.model.AuthenticationModel;
 import br.vschettino.forum.model.Usuario;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.DigestUtils;
 
 /**
  *
  * @author Vinicius Schettino
  */
-public class UsuarioDAOImpl implements UsuarioDAO {
+@Transactional
+public class UsuarioDAOImpl implements UsuarioDAO, AuthenticationService {
 
     private SessionFactory sessionFactory;
 
@@ -36,6 +40,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     }
 
     @Override
+    @Transactional
     public Usuario getUsuario(String usuario) {
         List<Usuario> userList = new ArrayList<Usuario>();
         Query query = sessionFactory.getCurrentSession().createQuery("from Usuario u where u.usuario = :usuario");
@@ -47,6 +52,31 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             return null;
         }
 
+    }
+
+    @Override
+    public AuthenticationModel findByUsername(String username) {
+        return this.getUsuario(username);
+    }
+
+    @Override
+    public boolean validLogin() {
+        return true;
+    }
+
+    @Override
+    public Usuario authenticateUsuario(String usuario, String senha) {
+        Usuario visitante = this.getUsuario(usuario);
+        if (visitante == null || this.validatePassword(visitante, senha)) {
+            return null;
+        }
+        return visitante;
+
+    }
+
+    private boolean validatePassword(Usuario visitante, String senha) {
+        senha = new String(DigestUtils.md5Digest(senha.getBytes()), StandardCharsets.UTF_8);
+        return (visitante.getSenha().equals(senha));
     }
 
 }

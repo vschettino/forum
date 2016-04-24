@@ -7,13 +7,13 @@
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
              http://www.springframework.org/schema/context 
-             http://www.springframework.org/schema/context/spring-context-4.0.xsd
+             http://www.springframework.org/schema/context/spring-context-4.2.xsd
  http://www.springframework.org/schema/security
-      http://www.springframework.org/schema/security/spring-security-4.1.xsd
+      http://www.springframework.org/schema/security/spring-security-4.2.xsd
 http://www.springframework.org/schema/mvc
 http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd"> 
     
@@ -32,7 +32,7 @@ http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
         <property name="dataSource" ref="dataSource" />
         <property name="configLocation" value="classpath:hibernate.cfg.xml" />
     </bean>
-    <tx:annotation-driven />
+    <tx:annotation-driven transaction-manager="transactionManager" />
     <bean id="transactionManager"
           class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory" />
@@ -44,7 +44,10 @@ http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
     </bean>
     <mvc:annotation-driven />
     <mvc:resources mapping="/resources/**" location="/resources/" />
-    <context:component-scan base-package="br.vschettino.forum" />
+    <mvc:interceptors>
+        <bean class="br.vschettino.forum.interceptor.AuthInterceptor" />
+    </mvc:interceptors> 
+    <context:component-scan base-package="br.vschettino.forum.*" />
      
     <bean id="tilesConfigurer"
           class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">

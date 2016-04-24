@@ -9,4 +9,9 @@
         <put-attribute name="footer" value="/WEB-INF/layouts/main/footer.jsp" />
     </definition>
   
+    <definition name="loginTemplate" template="/WEB-INF/layouts/login/loginLayout.jsp">
+        <put-attribute name="header" value="/WEB-INF/layouts/login/header.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/layouts/login/footer.jsp" />
+    </definition>
+  
 </tiles-definitions>

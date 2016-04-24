@@ -8,13 +8,12 @@ package br.vschettino.forum.controller;
 import br.vschettino.forum.dao.UsuarioDAO;
 import java.util.List;
 
-import br.vschettino.forum.dao.UsuarioDAOImpl;
+
 import br.vschettino.forum.model.Usuario;
-import javax.servlet.ServletContext;
-import javax.ws.rs.core.Context;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,10 +24,12 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @RequestMapping(value = {"/discussao"})
-public class DiscussaoController {
+@Scope("session")
+public class DiscussaoController extends br.vschettino.forum.controller.Controller {
 
     @Autowired
     private UsuarioDAO usuarioDAO;
+
 
     @RequestMapping(value = {"/", "/list"})
     public ModelAndView lista() {
@@ -55,5 +56,6 @@ public class DiscussaoController {
         model.addObject("userList", listUsers);
         return model;
     }
+
 
 }
