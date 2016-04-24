@@ -12,4 +12,6 @@ import br.vschettino.forum.model.Usuario;
 public interface UsuarioDAO {
 
     public List<Usuario> list();
+
+    public Usuario getUsuario(String login);
 }

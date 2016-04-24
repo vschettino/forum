@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<http auto-config="true">  
+      
+    <intercept-url pattern="/*" access="ROLE_MODERATOR">  
+        <intercept-url pattern="/*" access="ROLE_ADMIN">  
+          
+            <form-login login-page="/login" default-target-url="/success-login" authentication-failure-url="/error-login">  
+                <logout logout-success-url="/index.html">  
+          
+                </logout>
+            </form-login>
+        </intercept-url>
+    </intercept-url>
+</http>  
+      
+<authentication-manager>  
+    <authentication-provider user-service-ref="customUserDetailsService">  
+        <password-encoder hash="plaintext"> 
+        </password-encoder>
+    </authentication-provider>
+</authentication-manager> 
