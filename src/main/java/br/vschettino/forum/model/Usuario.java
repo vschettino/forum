@@ -6,6 +6,7 @@
 package br.vschettino.forum.model;
 
 import java.util.Collection;
+import java.util.Set;
 import org.springframework.context.annotation.Scope;
 
 /**
@@ -19,10 +20,28 @@ public class Usuario implements AuthenticationModel {
     private int id;
     private String usuario;
     private String senha;
+    private Set<Discussao> discussoes;
+    private Set<Resposta> respostas;
 
     public Usuario(String usuario, String senha) {
         this.usuario = usuario;
         this.senha = senha;
+    }
+
+    public Set<Resposta> getRespostas() {
+        return respostas;
+    }
+
+    public void setRespostas(Set<Resposta> respostas) {
+        this.respostas = respostas;
+    }
+
+    public Set<Discussao> getDiscussoes() {
+        return discussoes;
+    }
+
+    public void setDiscussoes(Set<Discussao> discussoes) {
+        this.discussoes = discussoes;
     }
 
     public Usuario() {

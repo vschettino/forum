@@ -5,7 +5,10 @@
  */
 package br.vschettino.forum.controller;
 
+import br.vschettino.forum.dao.DiscussaoDAO;
+import br.vschettino.forum.dao.RespostaDAO;
 import br.vschettino.forum.dao.UsuarioDAO;
+import br.vschettino.forum.model.Discussao;
 import br.vschettino.forum.model.Usuario;
 import java.io.IOException;
 import java.util.List;
@@ -32,19 +35,43 @@ public class SiteController extends br.vschettino.forum.controller.Controller {
 
     @Autowired
     private UsuarioDAO usuarioDAO;
+    @Autowired
+    private DiscussaoDAO discussaoDAO;
+    @Autowired
+    private RespostaDAO respostaDAO;
 
     @RequestMapping(value = "/")
     public ModelAndView home() {
 
-        List<Usuario> listUsers = usuarioDAO.list();
+        List<Discussao> listDiscussao = discussaoDAO.list();
+        Long countDiscussoes = discussaoDAO.getCount();
+        Long countDiscussoesNaoRespondidas = discussaoDAO.getCountNaoRespondidas();
+        Long countRespostas = respostaDAO.getCount();
         ModelAndView model = new ModelAndView("home");
-        model.addObject("userList", listUsers);
+        model.addObject("listDiscussao", listDiscussao);
+        model.addObject("countDiscussoes", countDiscussoes);
+        model.addObject("countDiscussoesNaoRespondidas", countDiscussoesNaoRespondidas);
+        model.addObject("countRespostas", countRespostas);
         return model;
     }
 
-    @RequestMapping(value = "/login")
-    public ModelAndView login() {
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public ModelAndView login(HttpServletRequest request) {
+        String unauthorized = request.getParameter("unauthorized");
+        String error = request.getParameter("error");
+        String logout = request.getParameter("logout");
+        String errorMessage = "";
+        if (unauthorized != null) {
+            errorMessage = "Não conseguimos localizar seus dados de autenticação. Pode ser que sua sessão tenha expirado. Faça o Login novamente";
+        }
+        if (error != null) {
+            errorMessage = "Usuário e/ou senha incorreto(s)";
+        }
+        if (logout != null) {
+            errorMessage = "Logout efetuado com sucesso.";
+        }
         ModelAndView model = new ModelAndView("login");
+        model.addObject("errorMessage", errorMessage);
         return model;
     }
 

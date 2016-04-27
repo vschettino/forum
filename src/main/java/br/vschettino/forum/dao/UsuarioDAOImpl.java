@@ -13,6 +13,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
@@ -32,7 +33,7 @@ public class UsuarioDAOImpl implements UsuarioDAO, AuthenticationService {
     @Override
     @Transactional
     public List<Usuario> list() {
-        List<Usuario> listUser = (List<Usuario>) sessionFactory.getCurrentSession()
+        List<Usuario> listUser = (List<Usuario>) sessionFactory.openSession()
                 .createCriteria(Usuario.class)
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 
@@ -43,7 +44,7 @@ public class UsuarioDAOImpl implements UsuarioDAO, AuthenticationService {
     @Transactional
     public Usuario getUsuario(String usuario) {
         List<Usuario> userList = new ArrayList<Usuario>();
-        Query query = sessionFactory.getCurrentSession().createQuery("from Usuario u where u.usuario = :usuario");
+        Query query = sessionFactory.openSession().createQuery("from Usuario u where u.usuario = :usuario");
         query.setParameter("usuario", usuario);
         userList = query.list();
         if (userList.size() > 0) {
@@ -67,7 +68,7 @@ public class UsuarioDAOImpl implements UsuarioDAO, AuthenticationService {
     @Override
     public Usuario authenticateUsuario(String usuario, String senha) {
         Usuario visitante = this.getUsuario(usuario);
-        if (visitante == null || this.validatePassword(visitante, senha)) {
+        if (visitante == null || !this.validatePassword(visitante, senha)) {
             return null;
         }
         return visitante;
@@ -75,8 +76,9 @@ public class UsuarioDAOImpl implements UsuarioDAO, AuthenticationService {
     }
 
     private boolean validatePassword(Usuario visitante, String senha) {
-        senha = new String(DigestUtils.md5Digest(senha.getBytes()), StandardCharsets.UTF_8);
-        return (visitante.getSenha().equals(senha));
+        byte[] senhaBytes = (DigestUtils.md5Digest(senha.getBytes()));
+        return (visitante.getSenha().equals(DigestUtils.md5DigestAsHex(senha.getBytes())));
+
     }
 
 }

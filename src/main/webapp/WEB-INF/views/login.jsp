@@ -9,30 +9,33 @@
     <tiles:putAttribute name="body">
         <form method="POST">
             <h1>Fazer Login</h1>
+            <c:if test="${errorMessage.length() > 0}">
+            <p class="alert alert-danger">${errorMessage}</p>
+                </c:if>
             <div>
-              <input name="usuario" type="text" class="form-control" placeholder="Username" required="" />
+                <input name="usuario" type="text" class="form-control" placeholder="Username" required="" />
             </div>
             <div>
-              <input name="senha" type="password" class="form-control" placeholder="Password" required="" />
+                <input name="senha" type="password" class="form-control" placeholder="Password" required="" />
             </div>
-            
+
             <div>
                 <button type="submit" class="form-control btn btn-primary"><i class="fa fa-lock"></i> Login</button>
             </div>
-            
+
 
             <div class="clearfix"></div>
             <div class="separator">
 
-              <div class="clearfix"></div>
-              <br />
-              <div>
-                <h1><i class="fa fa-comments-o" style="font-size: 26px;"></i> Forum!</h1>
+                <div class="clearfix"></div>
+                <br />
+                <div>
+                    <h1><i class="fa fa-comments-o" style="font-size: 26px;"></i> Forum!</h1>
 
-                <p>Forum - Por Vinícius Schettino. <a href="https://github.com/puikinsh/gentelella">Gentelella</a></p>
-              </div>
+                    <p>Forum - Por Vinícius Schettino. <a href="https://github.com/puikinsh/gentelella">Gentelella</a></p>
+                </div>
             </div>
-          </form>
+        </form>
 
 
     </tiles:putAttribute>

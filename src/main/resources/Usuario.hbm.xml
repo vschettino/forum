@@ -9,5 +9,32 @@
         </id>
         <property name="usuario" column="usuario" />
         <property name="senha" column="senha" />
+        <set name="respostas" inverse="true" cascade="all">
+            <key column="usuario_id" not-null="true" />
+            <one-to-many class="Resposta"/>
+        </set>
+        <set name="discussoes" inverse="true" cascade="all">
+            <key column="usuario_id" not-null="true" />
+            <one-to-many class="Discussao"/>
+        </set>
+    </class> 
+    <class name="Discussao" table="discussao">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="titulo" column="titulo" />
+        <property name="conteudo" column="conteudo" />
+        <property name="data_criacao" column="data_criacao" />
+        <many-to-one name="autor" class="Usuario" column="usuario_id" not-null="true"/>
+    </class> 
+    <class name="Resposta" table="resposta">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="conteudo" column="conteudo" />
+        <property name="data_criacao" column="data_criacao" />
+        <many-to-one name="autor" class="Usuario" column="usuario_id" not-null="true"/>
+        <many-to-one name="discussao" class="Discussao" column="discussao_id" not-null="true"/>
+
     </class> 
 </hibernate-mapping>
