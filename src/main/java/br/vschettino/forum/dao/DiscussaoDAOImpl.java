@@ -46,7 +46,7 @@ public class DiscussaoDAOImpl implements DiscussaoDAO {
     @Transactional
     public Discussao getDiscussao(int id) {
         List<Discussao> listDiscussao = new ArrayList<Discussao>();
-        Query query = sessionFactory.openSession().createQuery("from discussao u where u.id = :id");
+        Query query = sessionFactory.openSession().createQuery("from Discussao u where u.id = :id");
         query.setParameter("id", id);
         listDiscussao = query.list();
         if (listDiscussao.size() > 0) {

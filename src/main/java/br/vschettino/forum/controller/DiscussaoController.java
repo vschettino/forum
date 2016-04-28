@@ -5,12 +5,12 @@
  */
 package br.vschettino.forum.controller;
 
+import br.vschettino.forum.dao.DiscussaoDAO;
 import br.vschettino.forum.dao.UsuarioDAO;
+import br.vschettino.forum.model.Discussao;
 import java.util.List;
 
-
 import br.vschettino.forum.model.Usuario;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -29,14 +29,16 @@ public class DiscussaoController extends br.vschettino.forum.controller.Controll
 
     @Autowired
     private UsuarioDAO usuarioDAO;
-
+    
+    @Autowired
+    private DiscussaoDAO discussaoDAO;
 
     @RequestMapping(value = {"/", "/list"})
     public ModelAndView lista() {
 
-        List<Usuario> listUsers = usuarioDAO.list();
+        List<Discussao> listDiscussao = discussaoDAO.list();
         ModelAndView model = new ModelAndView("discussoes");
-        model.addObject("userList", listUsers);
+        model.addObject("listDiscussao", listDiscussao);
         return model;
     }
 
@@ -51,11 +53,11 @@ public class DiscussaoController extends br.vschettino.forum.controller.Controll
 
     @RequestMapping(value = "/view/{id}")
     public ModelAndView view(@PathVariable("id") int id) {
-        List<Usuario> listUsers = usuarioDAO.list();
+        Discussao discussao = discussaoDAO.getDiscussao(id);
+        
         ModelAndView model = new ModelAndView("viewDiscussao");
-        model.addObject("userList", listUsers);
+        model.addObject("discussao", discussao);
         return model;
     }
-
 
 }

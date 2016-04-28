@@ -5,7 +5,15 @@
  */
 package br.vschettino.forum.model;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.ocpsoft.prettytime.PrettyTime;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 
 /**
@@ -15,6 +23,8 @@ import org.springframework.context.annotation.Scope;
 @Scope("session")
 public class Discussao {
 
+    @Autowired
+    org.ocpsoft.prettytime.PrettyTime prettyTime;
     private int id;
     private String titulo;
     private String conteudo;
@@ -80,7 +90,16 @@ public class Discussao {
     }
 
     public String getLabelTempo() {
-        return "13 Hrs";
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date;
+        try {
+            date = format.parse(data_criacao);
+        } catch (ParseException ex) {
+            return "agora mesmo";
+        }
+        PrettyTime p = new PrettyTime();
+        return (p.format(date));
     }
 
     public String getExcept() {

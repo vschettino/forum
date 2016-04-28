@@ -9,67 +9,34 @@
     <tiles:putAttribute name="body">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Qual é a melhor escolha?</h2>
+                <h2>${discussao.getTitulo()}</h2>
                 <h5><div class="byline">
-                        <span> &nbsp; 13 hours ago</span> by Jane Smith. 3 Resposta(s)
+                        <span> &nbsp; ${discussao.getLabelTempo()}</span> by ${discussao.getAutor().getUsuario()}. ${discussao.getCountRespostas()} Resposta(s)
                     </div></h5>
 
                 <div class="clearfix"></div>
-                <p>posso escrever coisas menores aqui sem problemas?</p>
+                <p>${discussao.getConteudo()}</p>
 
             </div>
             <div class="x_content">
-                <ul class="messages list-unstyled">
-                    <li>
-                        <img src="/Forum/assets/images/img.jpg" class="avatar" alt="Avatar">
-                        <div class="message_date">
-                            <h3 class="date text-info">24</h3>
-                            <p class="month">May</p>
-                        </div>
-                        <div class="message_wrapper">
-                            <h4 class="heading">Vinicius Schettino </h4>
-                            <blockquote class="message">Eu realmente não sei qual seria a melhor opção para você!</blockquote>
-                            <br>
-                            <a class="links" style="cursor: pointer;"><i class="fa fa-trash"></i> Remover</a>
+                <c:forEach var="resposta" items="${discussao.getRespostas()}" varStatus="status">
+                    <ul class="messages list-unstyled">
+                        <li>
+                            <img src="/Forum/assets/images/img.jpg" class="avatar" alt="Avatar">
+                            <div class="message_date">
+                                <h3 class="date text-info">${resposta.getDia()}</h3>
+                                <p class="month">${resposta.getMes()}</p>
+                            </div>
+                            <div class="message_wrapper">
+                                <h4 class="heading">${resposta.getAutor().getUsuario()}</h4>
+                                <blockquote class="message">${resposta.getConteudo()}</blockquote>
+                                <br>
+                                <a class="links" style="cursor: pointer;"><i class="fa fa-trash"></i> Remover</a>
 
-                        </div>
-                    </li>
-                    <li>
-                        <img src="/Forum/assets/images/img.jpg" class="avatar" alt="Avatar">
-                        <div class="message_date">
-                            <h3 class="date text-info">24</h3>
-                            <p class="month">May</p>
-                        </div>
-                        <div class="message_wrapper">
-                            <h4 class="heading">Vinicius Schettino</h4>
-                            <blockquote class="message">Eu realmente não sei qual seria a melhor opção para você!</blockquote>
-                            <br>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="/Forum/assets/images/img.jpg" class="avatar" alt="Avatar">
-                        <div class="message_date">
-                            <h3 class="date text-info">24</h3>
-                            <p class="month">May</p>
-                        </div>
-                        <div class="message_wrapper">
-                            <h4 class="heading">Vinicius Schettino</h4>
-                            <blockquote class="message">Eu realmente não sei qual seria a melhor opção para você!</blockquote>
-                            <br>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="/Forum/assets/images/img.jpg" class="avatar" alt="Avatar">
-                        <div class="message_date">
-                            <h3 class="date text-info">24</h3>
-                            <p class="month">May</p>
-                        </div>
-                        <div class="message_wrapper">
-                            <h4 class="heading">Vinicius Schettino</h4>
-                            <blockquote class="message">Eu realmente não sei qual seria a melhor opção para você!</blockquote>
-                            <br>
-                        </div>
-                    </li>
+                            </div>
+                        </li>
+                    </c:forEach> 
+
                 </ul>
                 <div class="form-group">
                     <div class="col-md-12 col-sm-12 col-xs-12">

@@ -5,6 +5,12 @@
  */
 package br.vschettino.forum.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import org.ocpsoft.prettytime.PrettyTime;
+
 /**
  *
  * @author Vinicius Schettino
@@ -74,7 +80,28 @@ public class Resposta {
     public void setData_criacao(String data_criacao) {
         this.data_criacao = data_criacao;
     }
-    
-    
+
+    public String getDia() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date;
+        try {
+            date = format.parse(data_criacao);
+        } catch (ParseException ex) {
+            return "0";
+        }
+        return new SimpleDateFormat("dd").format(date);
+    }
+
+    public String getMes() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date;
+        try {
+            date = format.parse(data_criacao);
+        } catch (ParseException ex) {
+            return "Janeiro";
+        }
+        
+        return new SimpleDateFormat("MMMM").format(date);
+    }
 
 }

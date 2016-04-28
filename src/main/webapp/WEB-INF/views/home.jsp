@@ -58,7 +58,7 @@
                                         <div class="block">
                                             <div class="block_content">
                                                 <h2 class="title">
-                                                    <a>${discussao.titulo}</a>
+                                                    <a href="${discussao.getLink()}">${discussao.titulo}</a>
                                                 </h2>
                                                 <div class="byline">
                                                     <span>${discussao.getLabelTempo()}</span> by ${discussao.getAutor().getUsuario()}. ${discussao.getCountRespostas()} Resposta(s)
