@@ -27,8 +27,8 @@
 <script src="/Forum/assets/js/bootstrap.min.js"></script>
 
 <!-- gauge js -->
-<script type="text/javascript" src="/Forum/assets/js/gauge/gauge.min.js"></script>
-<script type="text/javascript" src="/Forum/assets/js/gauge/gauge_demo.js"></script>
+<!--<script type="text/javascript" src="/Forum/assets/js/gauge/gauge.min.js"></script>-->
+<!--<script type="text/javascript" src="/Forum/assets/js/gauge/gauge_demo.js"></script>-->
 <!-- bootstrap progress js -->
 <script src="/Forum/assets/js/progressbar/bootstrap-progressbar.min.js"></script>
 <!-- icheck -->
@@ -77,7 +77,7 @@
 <script src="/Forum/assets/js/editor/external/jquery.hotkeys.js"></script>
 <script src="/Forum/assets/js/editor/external/google-code-prettify/prettify.js"></script>
 <!-- select2 -->
-<script src="/Forum/assets/js/select/select2.full.js"></script>
+<!--<script src="/Forum/assets/js/select/select2.full.js"></script>-->
 <!-- form validation -->
 <script type="text/javascript" src="/Forum/assets/js/parsley/parsley.min.js"></script>
 <!-- textarea resize -->
@@ -107,6 +107,23 @@
 
 <!-- datepicker -->
 <script type="text/javascript">
+    function replyPost(idResponse, idPost) {
+        txt = $(idResponse).val();
+        if (txt.length > 0) {
+            $.ajax({
+                method: "POST",
+                url: "/Forum/web/discussao/reply",
+                data: {txt: txt, post: idPost}
+            })
+                    .done(function (msg) {
+                            window.location = '';
+                    });
+        }
+        else{
+            alert("A mensagem precisa ter pelo menos um caractere")
+        }
+    }
+
     $(document).ready(function () {
 
         var cb = function (start, end, label) {
@@ -179,20 +196,7 @@
     });
 </script>
 <!-- select2 -->
-<script>
-    $(document).ready(function () {
-        $(".select2_single").select2({
-            placeholder: "Select a state",
-            allowClear: true
-        });
-        $(".select2_group").select2({});
-        $(".select2_multiple").select2({
-            maximumSelectionLength: 4,
-            placeholder: "With Max Selection limit 4",
-            allowClear: true
-        });
-    });
-</script>
+
 <!-- /select2 -->
 <!-- input tags -->
 <script>
@@ -286,7 +290,6 @@
         $(":input").inputmask();
     });
 </script>
-
 <!-- /editor -->
 <!-- /input tags -->
 <script>

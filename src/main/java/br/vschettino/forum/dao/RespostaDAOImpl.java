@@ -16,7 +16,9 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
@@ -25,18 +27,16 @@ import org.springframework.util.DigestUtils;
  * @author Vinicius Schettino
  */
 @Transactional
+@Service
 public class RespostaDAOImpl implements RespostaDAO {
 
+    @Autowired
     private SessionFactory sessionFactory;
-
-    public RespostaDAOImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
 
     @Override
     @Transactional
     public List<Resposta> list() {
-        List<Resposta> listResposta = (List<Resposta>) sessionFactory.openSession()
+        List<Resposta> listResposta = (List<Resposta>) sessionFactory.getCurrentSession()
                 .createCriteria(Resposta.class)
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 
@@ -45,9 +45,9 @@ public class RespostaDAOImpl implements RespostaDAO {
 
     @Override
     @Transactional
-    public Resposta getResposta(int id) {
+    public Resposta getResposta(Long id) {
         List<Resposta> listResposta = new ArrayList<Resposta>();
-        Query query = sessionFactory.openSession().createQuery("from Resposta u where u.id = :id");
+        Query query = sessionFactory.getCurrentSession().createQuery("from Resposta u where u.id = :id");
         query.setParameter("id", id);
         listResposta = query.list();
         if (listResposta.size() > 0) {
@@ -59,8 +59,13 @@ public class RespostaDAOImpl implements RespostaDAO {
     }
 
     @Override
+    @Transactional
     public Long getCount() {
-        return (Long) sessionFactory.openSession().createCriteria(Resposta.class).setProjection(Projections.rowCount()).uniqueResult();
+        return (Long) sessionFactory.getCurrentSession().createCriteria(Resposta.class).setProjection(Projections.rowCount()).uniqueResult();
+    }
+
+    public Long save(Resposta r) {
+        return (Long) sessionFactory.getCurrentSession().save(r);
     }
 
 }

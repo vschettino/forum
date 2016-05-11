@@ -15,7 +15,9 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
@@ -24,18 +26,17 @@ import org.springframework.util.DigestUtils;
  * @author Vinicius Schettino
  */
 @Transactional
+@Service
 public class DiscussaoDAOImpl implements DiscussaoDAO {
 
+    @Autowired
     private SessionFactory sessionFactory;
 
-    public DiscussaoDAOImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
 
     @Override
     @Transactional
     public List<Discussao> list() {
-        List<Discussao> listDiscussao = (List<Discussao>) sessionFactory.openSession()
+        List<Discussao> listDiscussao = (List<Discussao>) sessionFactory.getCurrentSession()
                 .createCriteria(Discussao.class)
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 
@@ -44,9 +45,9 @@ public class DiscussaoDAOImpl implements DiscussaoDAO {
 
     @Override
     @Transactional
-    public Discussao getDiscussao(int id) {
+    public Discussao getDiscussao(Long id) {
         List<Discussao> listDiscussao = new ArrayList<Discussao>();
-        Query query = sessionFactory.openSession().createQuery("from Discussao u where u.id = :id");
+        Query query = sessionFactory.getCurrentSession().createQuery("from Discussao u where u.id = :id");
         query.setParameter("id", id);
         listDiscussao = query.list();
         if (listDiscussao.size() > 0) {
@@ -58,13 +59,15 @@ public class DiscussaoDAOImpl implements DiscussaoDAO {
     }
 
     @Override
+    @Transactional
     public Long getCount() {
-        return (Long) sessionFactory.openSession().createCriteria(Discussao.class).setProjection(Projections.rowCount()).uniqueResult();
+        return (Long) sessionFactory.getCurrentSession().createCriteria(Discussao.class).setProjection(Projections.rowCount()).uniqueResult();
     }
 
     @Override
+    @Transactional
     public Long getCountNaoRespondidas() {
-        return (Long) (sessionFactory.openSession().createQuery("select count(*) from Discussao").uniqueResult());
+        return (Long) (sessionFactory.getCurrentSession().createQuery("select count(*) from Discussao").uniqueResult());
     }
 
 }

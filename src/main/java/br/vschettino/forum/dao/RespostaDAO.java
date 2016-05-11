@@ -12,8 +12,10 @@ public interface RespostaDAO {
 
     public List<Resposta> list();
 
-    public Resposta getResposta(int id);
+    public Resposta getResposta(Long id);
 
     public Long getCount();
+
+    public Long save(Resposta r);
 
 }

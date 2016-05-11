@@ -31,8 +31,9 @@
                                 <h4 class="heading">${resposta.getAutor().getUsuario()}</h4>
                                 <blockquote class="message">${resposta.getConteudo()}</blockquote>
                                 <br>
-                                <a class="links" style="cursor: pointer;"><i class="fa fa-trash"></i> Remover</a>
-
+                                <c:if test="${resposta.getAutor().getUsuario() == sessionScope.usuario.getUsuario()}">
+                                    <a class="links" style="cursor: pointer;"><i class="fa fa-trash"></i> Remover</a>
+                                </c:if>        
                             </div>
                         </li>
                     </c:forEach> 
@@ -40,8 +41,7 @@
                 </ul>
                 <div class="form-group">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <textarea placeholder="Responder..."class="form-control" style="width: 100%; overflow: hidden; word-wrap: break-word; resize: none; height: 150px;">
-                        </textarea>
+                        <textarea id="responseTxt" placeholder="Responder..."class="form-control" style="width: 100%; overflow: hidden; word-wrap: break-word; resize: none; height: 150px;"></textarea>
                     </div>
                 </div>
                 <br />
@@ -49,7 +49,7 @@
 
                 <div class="form-group">
                     <div class="col-md-1 col-md-offset-11">
-                        <i class="fa fa-reply"></i>  <a href="#" style="cursor: pointer">Responder</a>
+                        <i  class="fa fa-reply"></i>  <a href="#"  onclick="replyPost('#responseTxt', '${discussao.getId()}');return false;"id="replyBtn" style="cursor: pointer">Responder</a>
                     </div>
                 </div>
             </div>

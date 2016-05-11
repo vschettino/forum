@@ -13,7 +13,7 @@ public interface DiscussaoDAO {
 
     public List<Discussao> list();
 
-    public Discussao getDiscussao(int id);
+    public Discussao getDiscussao(Long id);
     public Long getCount();
     public Long getCountNaoRespondidas();
 }

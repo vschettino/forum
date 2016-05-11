@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.OrderBy;
 import org.ocpsoft.prettytime.PrettyTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -25,12 +26,13 @@ public class Discussao {
 
     @Autowired
     org.ocpsoft.prettytime.PrettyTime prettyTime;
-    private int id;
+    private Long id;
     private String titulo;
     private String conteudo;
     private String data_criacao;
     private int usuario_id;
     private Usuario autor;
+    @OrderBy("data_criacao")
     private Set<Resposta> respostas;
 
     public Usuario getAutor() {
@@ -40,7 +42,7 @@ public class Discussao {
     public void setAutor(Usuario usuario) {
         this.autor = usuario;
     }
-
+    @OrderBy("data_criacao")
     public Set<Resposta> getRespostas() {
         return respostas;
     }
@@ -49,11 +51,11 @@ public class Discussao {
         this.respostas = respostas;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

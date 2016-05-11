@@ -39,21 +39,15 @@ http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
           class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
-    <bean id="UsuarioDAO" class="br.vschettino.forum.dao.UsuarioDAOImpl">
-        <constructor-arg>
-            <ref bean="sessionFactory" />
-        </constructor-arg>
+<!--    <bean id="UsuarioDAO" class="br.vschettino.forum.dao.UsuarioDAOImpl">
+
     </bean>
     <bean id="DiscussaoDAO" class="br.vschettino.forum.dao.DiscussaoDAOImpl">
-        <constructor-arg>
-            <ref bean="sessionFactory" />
-        </constructor-arg>
+
     </bean>
-    <bean id="RespostaDAO" class="br.vschettino.forum.dao.RespostaDAOImpl">
-        <constructor-arg>
-            <ref bean="sessionFactory" />
-        </constructor-arg>
-    </bean>
+    <bean id="RespostaDAO" class="br.vschettino.forum.dao.RespostaDAOImpl">-->
+
+    <!--</bean>-->
     <mvc:annotation-driven />
     <mvc:resources mapping="/resources/**" location="/resources/" />
     <mvc:interceptors>

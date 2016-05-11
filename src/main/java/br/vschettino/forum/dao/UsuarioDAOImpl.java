@@ -13,7 +13,9 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
@@ -22,18 +24,17 @@ import org.springframework.util.DigestUtils;
  * @author Vinicius Schettino
  */
 @Transactional
+@Service
 public class UsuarioDAOImpl implements UsuarioDAO, AuthenticationService {
 
+    @Autowired
     private SessionFactory sessionFactory;
 
-    public UsuarioDAOImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
 
     @Override
     @Transactional
     public List<Usuario> list() {
-        List<Usuario> listUser = (List<Usuario>) sessionFactory.openSession()
+        List<Usuario> listUser = (List<Usuario>) sessionFactory.getCurrentSession()
                 .createCriteria(Usuario.class)
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 
@@ -44,7 +45,7 @@ public class UsuarioDAOImpl implements UsuarioDAO, AuthenticationService {
     @Transactional
     public Usuario getUsuario(String usuario) {
         List<Usuario> userList = new ArrayList<Usuario>();
-        Query query = sessionFactory.openSession().createQuery("from Usuario u where u.usuario = :usuario");
+        Query query = sessionFactory.getCurrentSession().createQuery("from Usuario u where u.usuario = :usuario");
         query.setParameter("usuario", usuario);
         userList = query.list();
         if (userList.size() > 0) {

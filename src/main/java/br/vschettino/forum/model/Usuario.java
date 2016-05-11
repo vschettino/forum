@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Scope;
 @Scope("session")
 public class Usuario implements AuthenticationModel {
 
-    private int id;
+    private Long id;
     private String usuario;
     private String senha;
     private Set<Discussao> discussoes;
@@ -48,11 +48,11 @@ public class Usuario implements AuthenticationModel {
 
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
