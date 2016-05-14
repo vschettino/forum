@@ -32,7 +32,6 @@ public class DiscussaoDAOImpl implements DiscussaoDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
-
     @Override
     @Transactional
     public List<Discussao> list() {
@@ -68,6 +67,12 @@ public class DiscussaoDAOImpl implements DiscussaoDAO {
     @Transactional
     public Long getCountNaoRespondidas() {
         return (Long) (sessionFactory.getCurrentSession().createQuery("select count(*) from Discussao").uniqueResult());
+    }
+
+    @Override
+    @Transactional
+    public Long save(Discussao d) {
+        return (Long) sessionFactory.getCurrentSession().save(d);
     }
 
 }

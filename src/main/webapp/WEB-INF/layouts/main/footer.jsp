@@ -112,16 +112,28 @@
         if (txt.length > 0) {
             $.ajax({
                 method: "POST",
-                url: "/Forum/web/discussao/reply",
+                url: "/Forum/web/resposta/create",
                 data: {txt: txt, post: idPost}
             })
                     .done(function (msg) {
-                            window.location = '';
+                        window.location = '';
                     });
-        }
-        else{
+        } else {
             alert("A mensagem precisa ter pelo menos um caractere")
         }
+    }
+
+    function removeReply(id) {
+        $.ajax({
+            method: "GET",
+            url: "/Forum/web/resposta/remove/"+id
+        })
+                .done(function (msg) {
+                    $('#reply-container-'+id).slideUp(300, function(){
+                        this.destroy();
+                    })
+                });
+
     }
 
     $(document).ready(function () {

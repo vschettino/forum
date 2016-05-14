@@ -25,11 +25,11 @@
                     </div>
                     <div class="x_content">
                         <div id="alerts"></div>
-                        <form class="form">
+                        <form class="form" method="POST">
                             <div class="form-group">
                                 <label class="control-label col-md-1 col-sm-1 col-xs-1">Título: </label>
                                 <div class="col-md-11 col-sm-11 col-xs-11">
-                                    <input type="text" class="form-control">
+                                    <input type="text" name="titulo" class="form-control">
                                     <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
                                 </div>
                             </div>
@@ -97,12 +97,12 @@
                             <div id="editor">
 
                             </div>
-                            <textarea name="descr" id="descr" style="display:none;"></textarea>
+                            <textarea name="conteudo" id="descr" style="display:none;"></textarea>
                             <br />
                             <div class="ln_solid"></div>
                             <div class="form-group">
                                 <div class="col-md-2 col-md-offset-10">
-                                    <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i> Criar Discussão</button>
+                                    <button type="submit" class="btn btn-success xcxc"><i class="fa fa-plus"></i> Criar Discussão</button>
                                 </div>
                             </div>
                         </form>

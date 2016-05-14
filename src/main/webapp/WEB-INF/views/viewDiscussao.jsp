@@ -21,7 +21,7 @@
             <div class="x_content">
                 <c:forEach var="resposta" items="${discussao.getRespostas()}" varStatus="status">
                     <ul class="messages list-unstyled">
-                        <li>
+                        <li id="reply-container-${resposta.getId()}">
                             <img src="/Forum/assets/images/img.jpg" class="avatar" alt="Avatar">
                             <div class="message_date">
                                 <h3 class="date text-info">${resposta.getDia()}</h3>
@@ -32,7 +32,7 @@
                                 <blockquote class="message">${resposta.getConteudo()}</blockquote>
                                 <br>
                                 <c:if test="${resposta.getAutor().getUsuario() == sessionScope.usuario.getUsuario()}">
-                                    <a class="links" style="cursor: pointer;"><i class="fa fa-trash"></i> Remover</a>
+                                    <a href="#" onclick="removeReply('${resposta.getId()}');return false;" class="links" style="cursor: pointer;"><i class="fa fa-trash"></i> Remover</a>
                                 </c:if>        
                             </div>
                         </li>

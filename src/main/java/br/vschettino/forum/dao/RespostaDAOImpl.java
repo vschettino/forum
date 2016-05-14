@@ -67,5 +67,8 @@ public class RespostaDAOImpl implements RespostaDAO {
     public Long save(Resposta r) {
         return (Long) sessionFactory.getCurrentSession().save(r);
     }
+    public void delete(Resposta r) {
+        sessionFactory.getCurrentSession().delete(r);
+    }
 
 }

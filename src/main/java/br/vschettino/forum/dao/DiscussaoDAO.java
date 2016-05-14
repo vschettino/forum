@@ -16,4 +16,6 @@ public interface DiscussaoDAO {
     public Discussao getDiscussao(Long id);
     public Long getCount();
     public Long getCountNaoRespondidas();
+
+    public Long save(Discussao d);
 }

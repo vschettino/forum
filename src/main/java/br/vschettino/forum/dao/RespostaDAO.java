@@ -18,4 +18,6 @@ public interface RespostaDAO {
 
     public Long save(Resposta r);
 
+    public void delete(Resposta r);
+
 }

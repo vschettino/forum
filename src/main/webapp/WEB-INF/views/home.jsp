@@ -28,7 +28,7 @@
                 <div class="left"></div>
                 <div class="right">
                     <span class="count_top"><i class="fa fa-thumbs-down"></i> Discussões não respondidas</span>
-                    <div class="count red ">${countDiscussoesNaoRespondidas}</div>
+                    <div class="count red ">0</div>
                 </div>
             </div>
 
